@@ -1,10 +1,19 @@
 
+import turtle
+
+PART_OF_PATH = '0'
+TRIED = '.'
+OBSTACLE = '+'
+DEAD_END = '-'
+
+
 class maze:
 	def __init__(self, mazeFileName):
 		rowsInMaze = 0
 		colsInMaze = 0
 		self.mazelist = []
 		mazefile = open(mazeFileName, 'r')
+		rowsInMaze = 0
 		for line in mazefile:
 			rowList = []
 			col = 0
@@ -16,13 +25,14 @@ class maze:
 				col = col + 1
 			rowsInMaze = rowsInMaze + 1
 			self.mazelist.append(rowList)
-			columnsInMaze = len(rowList)
+			colsInMaze = len(rowList)
 		
 		self.rowsInMaze = rowsInMaze
 		self.colsInMaze = colsInMaze
-		self.xTranslate = -columnsInMaze/2
+		self.xTranslate = -colsInMaze/2
 		self.yTranslate = rowsInMaze/2
 		self.t = turtle.Turtle()
+		self.t.shape('turtle')
 		self.wn  = turtle.Screen()
 		#setup(width=800, height=800)
 		self.wn.setworldcoordinates(-(colsInMaze-1)/2-.5,
@@ -31,22 +41,26 @@ class maze:
 					-(rowsInMaze-1)/2+.5)
 		
 	def drawMaze(self):
+		self.t.speed(10)
+		self.wn.tracer(0)
+		
 		for y in range(self.rowsInMaze):
 			for x in range(self.colsInMaze):
 				if self.mazelist[y][x] == OBSTACLE:
 					self.drawCenteredBox(x+self.xTranslate,
 								-y+self.yTranslate,
 									'tan')
-		self.t.color('black','blue')
+		self.t.color('black')
 		self.t.fillcolor('blue')
 		self.wn.update()
 		self.wn.tracer(1)
 	
 	def drawCenteredBox(self,x,y,color):
-		tracer(0)
+		#tracer(0)
 		self.t.up()
 		self.t.goto(x-.5,y-.5)
-		self.t.color('black',color)
+		self.t.color(color)
+		self.t.fillcolor(color)
 		self.t.setheading(90)
 		self.t.down()
 		self.t.begin_fill()
@@ -78,7 +92,7 @@ class maze:
 		elif val ==  TRIED:
 			color = 'black'
 		elif val == DEAD_END:
-			colot = 'red'
+			color = 'red'
 		else:
 			color = None
 
@@ -106,11 +120,11 @@ def searchFrom(maze, startRow, startCol):
 		return False
 	
 	# has it come back to same position
-	elif maze[startRow][startCol] == TRIED:
+	if maze[startRow][startCol] == TRIED or maze[startRow][startCol] == DEAD_END:
 		return False
 	
 	# has the turtle found an exit
-	elif maze.isExit(startRow, startCol):
+	if maze.isExit(startRow, startCol):
 		maze.updatePosition(startRow, startCol, PART_OF_PATH)
 		return True
 	
@@ -126,12 +140,6 @@ def searchFrom(maze, startRow, startCol):
 	return found
 
  
-import turtle
-
-PART_OF_PATH = '0'
-TRIED = '.'
-OBSTACLE = '+'
-DEAD_END = '-'
 
 myMaze = maze('maze2.txt')
 myMaze.drawMaze()
