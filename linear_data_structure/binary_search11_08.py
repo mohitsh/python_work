@@ -13,11 +13,7 @@ def binary_search(alist,item):
 		elif item > alist[mid]:
 			first = mid + 1
 		elif item < alist[mid]:
-			last = mid - 1
-	return found
-
-
-alist = [1,2,3,4,5,6]
+			last = mid - list = [1,2,3,4,5,6]
 item1 = 1
 item2 = 4
 item3 = 6
@@ -27,3 +23,4 @@ print binary_search(alist, item1)
 print binary_search(alist, item2)
 print binary_search(alist, item3)
 print binary_search(alist, item4)
+
