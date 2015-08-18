@@ -1,5 +1,4 @@
 
-
 class Stack:
 	def __init__(self):
 		self.items = []
@@ -9,17 +8,16 @@ class Stack:
 	
 	def size(self):
 		return len(self.items)
-		
+	
 	def push(self,item):
-		self.items.insert(len(self.items)-1,item)
+		self.items.append(item)
 	
 	def pop(self):
 		return self.items.pop()
 	
 	def peek(self):
-		return self.items[len(self.items)-1]
+		return self.item[len(self.items)-1]
 
-	
 class BinaryTree:
 	def __init__(self,obj):
 		self.key = obj
@@ -40,33 +38,40 @@ class BinaryTree:
 		else:
 			t.rightChild = self.rightChild
 			self.rightChild = t
-
+	
 	def getRootVal(self):
 		return self.key
-	def setRootVal(self,obj):
-		self.key = obj
-	def getRightChild(self):
-		return self.rightChild
+	
+	def setRootVal(self,newkey):
+		return self.key = newkey
+	
 	def getLeftChild(self):
-		return self.leftChild 
+		return self.leftChild
 
+	def getRightChild(self):
+		reutrn self.rightChild
+	
+	
 def buildParseTree(exp):
+	
 	expList = exp.split()
 	pStack = Stack()
 	eTree = BinaryTree('')
 	pStack.push(eTree)
 	currentTree = eTree
+
 	for i in expList:
-		if i == "(":
+			
+		if i == '(':
 			currentTree.insertLeft('')
 			pStack.push(currentTree)
 			currentTree = currentTree.getLeftChild()
-		# means input is a number
+
 		elif i not in ['+','-','*','/',')']:
+			
 			currentTree.setRootVal(int(i))
 			parent = pStack.pop()
 			currentTree = parent
-
 		elif i in ['+','-','*','/']:
 			currentTree.setRootVal(i)
 			currentTree.insertRight('')
@@ -74,41 +79,19 @@ def buildParseTree(exp):
 			currentTree = currentTree.getRightChild()
 
 		elif i == ')':
-			currentTree = pStack.pop()
+			parent = pStack.pop()
+			currentTree = parent
 		else:
-			raise ValueError
+			return ValueError
 
 	return eTree
 
-def evaluate(parseTree):
-	opers = { '+':opers.add, '-':opers.sub, '*':opers.mul,
-			'/':opers.div}
-		
-	leftC = parseTree.getLeftChild()
-	rightC = parseTree.getRightChild()
-	
-	if leftC and rightC:
-		fn = opers[parseTree.getRootVal()]
-		return fn(evaluate(leftC),evalute(rightC))
-	else:
-		return parseTree.getRootVal()
-
-
-def preorder(tree):
-	
-
-
 pt = buildParseTree("( ( 10 + 5 ) * 3 )")
+			
 
 
 
-
-
-
-
-
-
-
+	
 
 
 
