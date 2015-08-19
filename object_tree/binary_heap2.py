@@ -51,3 +51,22 @@ class BinaryHeap:
 		self.heapList.pop()
 		self.percDown(1)
 		return retval
+
+	def buildHeap(self,alist):
+		i = len(alist)//2
+		self.currentSize = len(alist)
+		self.heapList = [0] + alist[:]
+		while i>0:
+			self.percDown(i)
+			i = i - 1
+
+bh = BinaryHeap()
+bh.buildHeap([9,5,6,2,3])
+
+print(bh.delMin())
+print(bh.delMin())
+print(bh.delMin())
+print(bh.delMin())
+print(bh.delMin())
+
+	
