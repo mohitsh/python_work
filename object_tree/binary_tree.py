@@ -15,8 +15,8 @@ class BinaryTree:
 			self.leftChild = t
 	def insertRight(self,newNode):	
 		t = BinaryTree(newNode)
-		if self.rightNode == None:
-			self.rightNode = t
+		if self.rightChild == None:
+			self.rightChild = t
 		else:
 			t.rightChild = self.rightChild
 			self.rightChild = t
