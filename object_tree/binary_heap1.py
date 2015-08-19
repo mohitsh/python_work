@@ -35,4 +35,19 @@ class BinHeap:
 			else:
 				return i*2 + 1
 		
-		
+	def delMin(self):
+		retval = self.heapList[i]
+		self.heapList[i] = self.heapList[self.currentSize]
+		self.currentSize = self.currentSize - 1
+		self.heapList.pop()
+		self.percDown(1)
+		return retval	
+
+	def buildHeap(self,alist):
+		i = len(alist)//2
+		self.currentSize =  len(alist)
+		self.heapList = [0] + alist[:]
+		while i > 0:
+			self.percDown(i)
+			i = i - 1
+			
