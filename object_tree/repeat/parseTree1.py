@@ -12,8 +12,8 @@ class Stack:
 	def push(self,item):
 		self.items.append(item)
 
-	def pop(self,item):
-		self.item.pop()
+	def pop(self):
+		self.items.pop()
 	
 class BinaryTree:
         def __init__(self,key):
@@ -53,21 +53,29 @@ class BinaryTree:
 
 def parseTree(exp):
 	t = BinaryTree('')
+	print t
 	p = Stack()
-	expList = exp.split()
+	expList = exp.split(" ")
+	p.push(t)	
+	print expList
 	currentTree = t
-	p.push(t)
-	for i in t:
+	print currentTree
+	
+	for i in expList:
 		if i == '(':
+			print i
+			print currentTree
 			currentTree.insertLeft("")
 			p.push(currentTree)
 			currentTree = currentTree.getLeftChild()
-			
+			print 'after insertion', currentTree	
 		elif i not in ['+','-','*','/',')']:
 			currentTree.setRootVal(int(i))
 			currentTree = p.pop()
 
 		elif i in ['+','-','*','/']:
+			print currentTree
+			print i
 			currentTree.setRootVal(i)
 			currentTree.insertRight('')
 			p.push(currentTree)
@@ -80,8 +88,30 @@ def parseTree(exp):
 			raise ValueError
 
 	return t
+
+
+def evaluate(parseTree):
+	opers = {'+':operator_add,'-':operator_sub,'*':operator_mul,'/':operator_div}
+	leftC = parseTree.getLeftChild()
+	rightC = parseTree.getRightChild()
+	
+	if leftC and rightC:
+		operand = opers[parseTree.getRootVal()]
+		return operand(evaluate(leftC),evaluate(rightC))
+	else:
+		return parseTree.getRootVal()
 			
-			
+def operator_add(a,b):
+	return a+b
+def operator_sub(a,b):
+	return a-b
+def operator_mul(a,b):
+	return a*b
+def operator_div(a,b):
+	return a/b
+
+pt = parseTree("( ( 10 + 5 ) * 3 )")
+print evaluate(pt)
 
 
 
