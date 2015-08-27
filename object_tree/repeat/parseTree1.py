@@ -28,6 +28,7 @@ class BinaryTree:
                         self.leftChild = t
                 else:
                         self.leftChild = t
+		
 
         def insertRight(self,node):
                 t = BinaryTree(node)
@@ -36,6 +37,7 @@ class BinaryTree:
                         self.rightChild = t
                 else:
                         self.rightChild = t
+		
 
         def getRootVal(self):
                 return self.key
@@ -52,14 +54,16 @@ class BinaryTree:
 	
 
 def parseTree(exp):
-	t = BinaryTree('')
-	print t
+	expList = exp.split()
 	p = Stack()
-	expList = exp.split(" ")
+	t = BinaryTree('')
+	#print t
+	#p = Stack()
+	#expList = exp.split()
 	p.push(t)	
-	print expList
+	#print expList
 	currentTree = t
-	print currentTree
+	#print currentTree
 	
 	for i in expList:
 		if i == '(':
@@ -110,8 +114,9 @@ def operator_mul(a,b):
 def operator_div(a,b):
 	return a/b
 
+
 pt = parseTree("( ( 10 + 5 ) * 3 )")
-print evaluate(pt)
+
 
 
 
