@@ -22,3 +22,23 @@ def postorder(tree):
 		postorder(tree.getRightChild())
 		print tree.getRootVal()
 
+def inorder(tree):
+	if tree:
+		inorder(tree.getLeftChild())
+		print tree.getRootVal()
+		inorder(tree.getRightChild())
+
+def postOrderEval(tree):
+	opers = { '+':operator.add, '-':operator.sub, 
+		'*':operator.mul, '/':operator.div}
+
+	res1 = None
+	res2 = None
+	if tree:
+		res1 = postOrderEval(tree.getLeftChild())
+		res2 = postOrderEval(tree.getRightChild())
+		if res1 and res2:
+			fn = opers(tree.getRootVal())
+			return fn(postOrderEval(res1),postOrderEval(res2))
+		else:
+			return tree.getRootVal()
