@@ -23,13 +23,24 @@ class BinarySearchTree:
 			 self.root = TreeNode(key,val)
 		self.size = self.size + 1
 	
+	def _put(self,key,val,currentNode):
+		if key < currentNode.key:
+			if currentNode.hasLeftChild():
+				self._put(key,val,currentNode.leftChild)
+			else:
+				currentNode.leftChild = TreeNode(key,val,parent = currentNode)
+		else:
+			if currentNode.hasRightChild():
+				self._put(key,val,currentNode.rightChild)
+			else:
+				currentNode.rightNode = TreeNode(key,val,parent=currentNode)
 	
 class TreeNode:
 	
 	def __init__(self,key,val,left=None,right=None,parent=None):
 		
 		self.key = key
-		self.val = val
+		self.payload = val
 		self.leftChild = left
 		self.rightChild = right
 		self.paretn = parent
@@ -50,22 +61,24 @@ class TreeNode:
 		return not self.parent	
 
 	def isLeaf(self):
-		return not (self.rightChild and self.leftChild)
+		return not (self.rightChild or self.leftChild)
 	
 	def hasAnyChildren(self):
 		return (self.rightChild or self.leftChild)_
 
-	def hasBothChild(self):
-		return (self.rightChild and self.rightChild)
+	def hasBothChildren(self):
+		return (self.rightChild and self.leftChild)
 	
 	def replaceNodeData(self,key,value,lc,rc):
 		self.key = key
 		self.payload = value
 		self.leftChild = lc
 		self.rightChild = rc
-		if self.hasLeftChild(self):
+	
+		if self.hasLeftChild:
 			self.leftChild.parent = self
-		if self.hasRightChild(self):
+	
+		if self.hasRightChild:
 			self.rightChild.parent = self
 
 		
