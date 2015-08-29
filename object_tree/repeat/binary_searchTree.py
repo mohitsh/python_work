@@ -34,6 +34,94 @@ class BinarySearchTree:
 				self._put(key,val,currentNode.rightChild)
 			else:
 				currentNode.rightNode = TreeNode(key,val,parent=currentNode)
+	def __setitem__(self,k,v):
+		self.put(k,v)
+
+	def get(self,key):
+		if self.root:
+			res = self._get(key,self.root)
+			if res:
+				return res.payload
+			else:
+				return None
+		else:
+			return None
+	
+	def _get(self,key,currentNode):
+		if not currentNode:
+			return None
+		elif currentNode.key == key:
+			return currentNode
+		elif currentNode.key > key:
+			return self._get(key,currentNode.leftChild)
+		else:
+			return self._getkey(key,currentNode.rightChild)
+	
+	def __getitem__(self,key):
+		return self.get(key)
+
+	def __contains__(self,key):
+		if self._get(key,self.root):
+			return True
+		else:	
+			return False
+	def delete(self,key):
+		if self.size > 1:
+			nodeToRemove = self._get(key,self.root)
+			if nodeToRemove:
+				self.remove(nodeToRemove)
+				self.size = self.size-1
+			else:
+				raise KeyError('Error, key not in tree')	
+
+		elif self.size == 1 and self.root.key == key:
+			self.root = None
+			self.size = self.size -1
+		else:
+			raise KeyError('Error, key not in tree')
+	
+	def __delitem__(self,key)
+		self.delete(key)
+
+	def spliceOut(self):
+		if self.isLeaf():
+			if self.isLeftChild():
+				self.parent.leftChild = self.leftChild
+			else:
+				self.parent.rightChild = self.leftChild
+			self.leftChild.parent = self.parent
+		else:
+			if self.isLeftChild():
+				self.parent.leftChild = self.rightChild
+			else:
+				self.parent.rightChild = self.rightChild
+			self.rightChild.parent = self.parent
+
+	def findSuccessor(left):
+		succ = None
+		if self.hasRightChild():
+			succ = self.rightChild.findMin()
+		else:
+			if self.parent:
+				if self.isLeftChild():
+					succ = self.parent
+				else:
+					self.parent.rightChild = None
+					succ = self.parent.findSuccessor()
+					self.parent.rightChild = self
+		return succ
+
+		
+
+
+
+
+
+
+
+
+		
+
 	
 class TreeNode:
 	
