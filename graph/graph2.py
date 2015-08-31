@@ -1,11 +1,48 @@
+import os
+import sys
 
 class Vertex:
 	def __init__(self,key):
 		self.id = key
 		self.connectedTo = {}
+		self.color = 'white'
+		self.dist =  sys.maxsize
+		self.pred = None
+		self.disc = 0
+		self.fin = 0
 
 	def addNeighbour(self,nbr,weight = 0):
 		self.connectedTo[nbr] = weight
+
+	def setColor(self,color):
+		self.color = color
+	
+	def setDistance(self,dist):
+		self.dist = dist
+	
+	def setPred(self,pred):		
+		self.pred = pred
+
+	def setDisc(self,disc):
+		self.disc = disc
+
+	def setFin(self,fin):
+		self.fin = fin
+
+	def getFin(self):
+		return self.fin
+	
+	def getDisc(self):
+		return self.disc
+
+	def getPred(self):
+		return self.pred
+
+	def getDistance(self):
+		return self.disc
+
+	def getColor(self):
+		return self.color
 
 	def getConnections(self):
 		return self.connectedTo.keys()
@@ -47,6 +84,8 @@ class Graph:
 
 	def __iter__(self):
 		return iter(self.vertList.values())
+
+	
 
 g = Graph()
 for i in range(6):
