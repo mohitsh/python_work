@@ -1,52 +1,51 @@
 
 
-class Vertex:
-	
-	__slots__ = '_elements'
-	
-	def __init__(self,x):
-		self._element = x
-	
-	def element(self):
-		return self._element
-
-	def __hash__(self):
-		return hash(id(self))
-
-	
-class Edge:
-	
-	__slots__ = '_origin', '_destination', '_element'
-	
-	def __init__(self,u,v,x):
-		self._origin = u
-		self._destination = v
-		self._element = x
-		
-	def endpoints(self):
-		return (self._origin, self._destination)
-
-	def opposite(self,v):
-		if v is self._origin:
-			return self._destination
-		else:
-			return self._origin
-
-	def element(self):
-		return self._element
-
-	def __hash__(self):
-		return hash((self._origin, self._destination))
-
 	
 class Graph:
 
+	class Vertex:
+	
+		__slots__ = '_elements'
+	
+		def __init__(self,x):
+			self._element = x
+	
+		def element(self):
+			return self._element
+	
+		def __hash__(self):
+			return hash(id(self))
+
+	
+	class Edge:
+	
+		__slots__ = '_origin', '_destination', '_element'
+	
+		def __init__(self,u,v,x):
+			self._origin = u
+			self._destination = v
+			self._element = x
+		
+		def endpoints(self):
+			return (self._origin, self._destination)
+
+		def opposite(self,v):
+			if v is self._origin:
+				return self._destination
+			else:
+				return self._origin
+
+		def element(self):
+			return self._element
+
+		def __hash__(self):
+			return hash((self._origin, self._destination))
+
+
+
 	def __init__(self, directed = False):
 		self._outgoing = {}
-		if directed:
-			self._incoming = {}
-		else:
-			self._outgoing
+		self._incoming = {} if directed else self._outgoing
 	
 	def is_directed(self):
 		return self._incoming is not self._outgoing
@@ -59,8 +58,7 @@ class Graph:
 
 	def edge_count(self):
 		total = sum(len(self._outgoing[v]) for v in self._outgoing)
-
-	return total if self.is_directed else total//2
+		return total if self.is_directed else total//2
 
 	def edges(self):
 		result = set()
@@ -69,7 +67,7 @@ class Graph:
 		return result
 
 	def get_edges(self,u,v):
-		return self._outgoing[v].get(v)
+		return self._outgoing[u].get(v)
 		
 	def degree(self,v,outgoing=True):
 		adj = self._outgoing if outgoing else self._incoming
@@ -84,7 +82,7 @@ class Graph:
 		v = self.Vertex(x)
 		self._outgoing[v] = {}
 		if self.is_directed():
-			self._incoming = {}
+			self._incoming[v] = {}
 		return v
 
 	def insert_edge(self,u,v,x=None):
@@ -92,21 +90,20 @@ class Graph:
 		self._outgoing[u][v] = e
 		self._incoming[v][u] = e
 
-	
+
+g = Graph()
+print g.is_directed()
+print g.vertex_count()
+print g.vertices()
+vert1 = g.insert_vertex('a')
+vert2 = g.insert_vertex('b')
+print g.vertex_count()
+g.insert_edge(vert1,vert2,100)
+print g.get_edges(vert1,vert2)
+print g.degree(vert1)
+print g.degree(vert2)
 
 
-
-
-
-
-
-
-
-
-
-
-
-	def 	
 
 
 
