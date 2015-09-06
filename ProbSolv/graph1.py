@@ -15,7 +15,8 @@ class Graph:
 	
 		def __hash__(self):
 			return hash(id(self))
-
+		def __str__(self):
+			return str(self._element)
 	
 	class Edge:
 	
@@ -40,6 +41,9 @@ class Graph:
 
 		def __hash__(self):
 			return hash((self._origin, self._destination))
+
+		def __str__(self):
+			return str(self._element)		
 
 
 
@@ -102,6 +106,30 @@ g.insert_edge(vert1,vert2,100)
 print g.get_edges(vert1,vert2)
 print g.degree(vert1)
 print g.degree(vert2)
+print g.get_edges(vert1,vert2)
+endpoints = g.get_edges(vert1,vert2).endpoints()
+for e in endpoints:
+	print 'endpoints', e
+
+vert =  g.vertices()
+for e in vert:
+	print e
+
+
+def DFS(g,u,discovered):
+	
+	for e in g.incident_edges(u):
+		v = e.opposite(u)
+		if v not in discovered:
+			discovered[v] = e
+			DFS(g,v,discovered)
+		
+
+
+
+
+
+
 
 
 

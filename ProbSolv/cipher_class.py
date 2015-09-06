@@ -1,6 +1,4 @@
 
-
-
 class CaesarCipher:
 	
 	def __init__(self,shift):

@@ -33,7 +33,22 @@ ans = []
 while not stack.is_empty():
 	ans.append(stack.pop())
 
-print ''.join(ans)
+#print ''.join(ans)
+
+
+def reverse(filename):
+	s = ArrayStack()
+	original = open(filename)
+	for line in original:
+		s.push(line.strip('\n'))
+	original.close()
+
+	output = open(filename, 'w')
+	while not s.is_empty():
+		output.write(s.pop() + '\n')
+	output.close()
+reverse('sample1.txt')	
+
 
 ''' stack check 
 

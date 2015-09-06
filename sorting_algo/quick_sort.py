@@ -23,4 +23,11 @@ def quick_sort(a,start,end):
         pindex = partition(a,start,end) #index of pivot
         quick_sort(a,start,pindex-1)
         quick_sort(a,pindex+1,end)
+	print a
+	
     return a
+
+
+alist = [54,26,93,17,77,31,44,55,20]
+quick_sort(alist,0,8)
+print (alist)
