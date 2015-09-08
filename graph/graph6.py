@@ -12,20 +12,23 @@ class Graph:
 		return self._directed
 		
 	def vertex_count(self):
-		return len(self._outgoing.keys())
+		return len(self._outgoing)
 
 	def vertices(self):
 		return self._outgoing.keys()
 
 	def edge_count(self):
-		total = sum(len(self._outgoing[v]) for v in self._outgoing.keys())
+		total = 0
+		for key in self._outgoing:
+			total = total + len(self._outgoing.get(key))
+
 		if self.is_directed():
-			return total 
+			return total//2 
 		else:
-			return total//2
+			return total
 
 	def edge(self):
-		final = ()
+		final = set()
 		for secmap in self._outgoing.values():
 			final.update(secmap.values())
 		return final
@@ -33,8 +36,11 @@ class Graph:
 	def get_edge(self,u,v):
 		return self._outgoing[u].get(v)
 		
-	def degree(self,u):
-		return len(self._outgoing[u])
+	def degree(self,u,outgoing = True):
+		if outgoing:
+			return len(self._outgoing[u])
+		else:
+			return len(self._incoming[u])
 
 	def insert_vertex(self,x = None):
 		newV = self.Vertex(x)
@@ -46,11 +52,18 @@ class Graph:
 	def insert_edge(self,u,v,x = None):
 		newe = self.Edge(u,v,x)
 		self._outgoing[u][v] = newe
-		if self.is_directed(): self._incoming[v][u] = newe
+		if self.is_directed(): 
+			self._incoming[v][u] = newe
+		return newe
+	
+	def incident_edge(self,u,outgoing = True):
+		adj = self._outgoing if outgoing else self._incoming
+		for edge in adj[v].values():
+			yield edge
 
 	class Vertex:
 		def __init__(self,x):
-			self.element = x
+			self._element = x
 		
 		def element(self):
 			return self._element
@@ -86,12 +99,14 @@ print ver2
 ver3 = g.insert_vertex('jain')
 ver4 = g.insert_vertex('namit')
 g.insert_edge(ver1,ver2,1000)
+g.insert_edge(ver2,ver3,2000)
 a = g.vertices()
 
 print 'directed -->', g.is_directed()
 print 'vertex_count -->', g.vertex_count()
 print 'edge b/w dalla and tapan -->', g.get_edge(ver1,ver2)
-#print a.element()
+print 'edge count -->', g.edge_count()
+print g.edge()
 
 
 
