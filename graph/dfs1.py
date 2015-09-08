@@ -19,9 +19,10 @@ def construct_path(u,v,discovered):
 		walk = v
 		while walk is not u:
 			e = discovered[walk]
-			parent = e.opposite()
+			parent = e.opposite(walk)
 			path.append(parent)
 			walk = parent
+			#print walk
 		path.reverse()
 	return path
 
@@ -69,6 +70,19 @@ for e in E:
 
 edges = g.edge()
 for key in edges:
+	print key.element()
+
+print verts['JFK']
+discovered = {}
+DFS(g,verts['JFK'],discovered)
+
+for key in discovered:
+	print key, '-->', discovered.get(key)
+
+print 'constructed path -->'
+path  = construct_path(verts['JFK'],verts['ORD'],discovered)
+for key in path:
+	print key
 	print key.element()
 
 
