@@ -29,6 +29,29 @@ def bubble(alist):
 	
 	return alist
 
+def shell_sort(alist):
+	sublistcount = len(alist)//2
+	while sublistcount > 0:
+		for startposition in range(sublistcount):
+			gapinsertsort(startposition,alist,sublistcount)
+		
+		sublistcount = sublistcount//2
+	
+
+def gapinsertsort(start,alist,gap):
+	for i in range(start+gap,len(alist),gap):
+		position = i
+		value = alist[i]
+		while position >= gap and alist[position-gap] > value:
+			alist[position] = alist[position-gap]
+			position = position - gap
+		alist[position] = value
+		
+alist = [6,5,4,3,2,1]
+print 'original list ->', alist
+shell_sort(alist)
+print 'shell sorted list ->', alist
+
 alist = [6,5,4,3,2,1]
 print 'original list ->', alist
 bubble(alist)
