@@ -77,6 +77,30 @@ def select(alist):
 		alist[pos_max] = temp
 	return alist
 
+
+def insert(alist):
+	for i in range(1,len(alist)):
+		position = i
+		value = alist[i]
+		while position > 0 and alist[position-1] > value:
+			alist[position] = alist[position-1]
+			position = position -1
+		alist[position] = value
+
+	return alist
+
+
+def insert_sort(alist):
+	for i in range(1,len(alist)):
+		position = i
+		value =	alist[i]
+		while position > 0 and alist[position-1] > value:
+			alist[position] = alist[position-1]
+			position = position - 1
+		alist[position] = value
+
+	return alist
+
 alist = [6,5,4,3,2,1]
 print 'original list -> ', alist
 bubble_sort(alist)
@@ -85,8 +109,14 @@ alist = [6,5,4,3,2,1]
 print 'original list ->', alist
 select(alist)
 print 'select sort ->', alist
-
-
+alist = [6,5,4,3,2,1]
+print 'original list -> ', alist
+insert(alist)
+print 'insert sort ->', alist
+alist = [6,5,4,3,2,1]
+print 'original list ->', alist
+insert_sort(alist)
+print 'insert sort ->', alist
 
 
 
