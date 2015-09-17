@@ -31,15 +31,10 @@ class Graph:
 	
 	def __init__(self,directed=False):
 		self._outgoing = {}
-		self.directed = directed
-		if directed:
-			self._incoming = {}
+		self._incoming = {} if directed else self._outgoing
 
 	def is_directed(self):
-		if self.directed:
-			return True
-		else:
-			return False
+		return self._incoming is not self._outgoing
 
 	def vertex_count (self):
 		return len(self._outgoing)
@@ -82,8 +77,7 @@ class Graph:
 	def insert_edge(self,u,v,x=None):
 		e = self.Edge(u,v,x)
 		self._outgoing[u][v] = e
-		if self.is_directed():
-			self._incoming[v][u] = e
+		self._incoming[v][u] = e
 
 
 
