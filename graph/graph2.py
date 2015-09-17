@@ -77,6 +77,10 @@ class Graph:
 		return n in self.vertList
 
 	def addEdge(self,f,t,cost=0):
+		if f not in self.vertList:
+			nv = self.addVertex(f)
+		if t not in self.vertList:
+			nv = self.addVertex(t)
 		self.vertList[f].addNeighbour(self.vertList[t], cost)
 
 	def getVertices(self):
@@ -103,11 +107,13 @@ g.addEdge(4,0,1)
 g.addEdge(5,4,8)
 g.addEdge(5,2,1)
 
+
+'''
 for v in g:
 	for w in v.getConnections():
 		print  "(%s,%s)" %(v.getId(),w.getId())
 
-
+'''
 
 
 
