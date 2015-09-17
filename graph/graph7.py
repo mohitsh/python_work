@@ -106,3 +106,9 @@ print g.edge_count()
 edges = g.edges()
 for k in edges:
 	print k
+
+print g.get_edge(v1,v2)
+print g.degree(v1)
+e = g.incident_edges(v1)
+for k in e:
+	print k
