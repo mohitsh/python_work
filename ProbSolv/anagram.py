@@ -10,8 +10,8 @@ def anagram(string):
 		str1 = string[:mid]
 		str2 = string[mid:]
 		count = 0
-		for i in range(len(str1)):
-			if str1[i] not in str2:
+		for i in range(len(str2)):
+			if str2[i] not in str1 or str1[i] not in str2:
 				count = count + 1
 		return count
 	
