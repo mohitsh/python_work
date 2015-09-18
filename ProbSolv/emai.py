@@ -1,18 +1,36 @@
 
 import re
 def emailcheck(email):
-	ind1 = email.index("@")
-	ind2 = email.index(".")
+	if "@" in email:
+		ind1 = email.index('@')
+		name = email[:ind1]
+		fname = re.search("[^A-Za-z0-9_-]+", name)
+		if not name:
+			return None
+		if "." in email:
+			ind2 = email.index(".")
+			host = email[ind1+1:ind2]
+			ext = email[ind2+1:]
+			fweb = re.search("[^A-Za-z0-9]+",host)
+			if not host or not ext:
+				return None
 
-	name = email[:ind1]
-	website = email[ind1:ind2]
-	ext =  email[ind2:]
-	
-	if re.match("^[A-Za-z0-9_-]*$", name) and re.match("^[A-Za-z0-9]*$", website) and len(ext) <= 3:
-		print "correct!"
+			if not fname and not fweb and len(ext) < 4:
+				return email
+			else:
+				return None
+	else:
+		return None
 
 
-email  = str(raw_input())
+n = int(raw_input())
+arr = []
+for i in range(n):
+	email = raw_input()
+	arr.append(str(email))
 
-emailcheck(email)
+arr  = list(filter(lambda x: emailcheck(x), arr))
+arr.sort()
+print arr
+
 
