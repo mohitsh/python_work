@@ -57,7 +57,8 @@ class Graph:
 g = Graph()
 for i in range(6):
 	g.addVertex(i)
-g.vertList
+
+print g.vertList
 
 g.addEdge(0,1,5)
 g.addEdge(0,5,2)
