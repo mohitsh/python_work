@@ -81,6 +81,7 @@ class Graph:
 		for edge in adj[v].values():
 			yield edge
 
+'''
 g = Graph()
 
 v1 = g.insert_vertex("dalla")
@@ -109,7 +110,7 @@ e4 = g.insert_edge(v1,v5,40)
 e5 = g.insert_edge(v1,v3,50)
 e6 = g.insert_edge(v3,v5,60)
 e7 = g.insert_edge(v4,v5,70)
-e8 = g.insert_edge(v4,v5,10)
+#e8 = g.insert_edge(v4,v5,10)
 print g.edge_count()
 
 e = g.edges()
@@ -130,3 +131,5 @@ print "beware!!"
 in_edges = g.incident_edge(v1)
 for k in in_edges:
 	print k
+
+'''
