@@ -47,7 +47,7 @@ class Graph:
 		return len(adj[v])
 	def incident_edges(self,v,outgoing = True):
 		adj = self._outgoing if outogig else self._incoming
-		for edge in adj[v]:
+		for edge in adj[v].values():
 			yield edge
 	def insert_vertex(self,x):
 		v = self.Vertex(x)
