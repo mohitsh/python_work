@@ -50,7 +50,7 @@ class Graph:
 
 	
 	def degree(self,v,outgoing = True):
-		adj = self._outgoing if outgoing else self._incomingg
+		adj = self._outgoing if outgoing else self._incoming
 		return len(adj[v])
 
 	def incident_edges(self,v,outgoing = True):

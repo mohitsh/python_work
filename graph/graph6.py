@@ -58,7 +58,7 @@ class Graph:
 	
 	def incident_edge(self,u,outgoing = True):
 		adj = self._outgoing if outgoing else self._incoming
-		for edge in adj[v].values():
+		for edge in adj[u].values():
 			yield edge
 
 	class Vertex:
@@ -89,26 +89,33 @@ class Graph:
 		def endpoints(self):
 			return (self._origin, self._destination)
 
-
+'''
 g = Graph()
-print g
+#print g
 ver1 = g.insert_vertex('dalla')
-print ver1
+# var1 is vertex object so get its value through .element method
+print 'ver1 -->', ver1.element()
 ver2 = g.insert_vertex('tapan')
-print ver2
+print 'ver2 -->', ver2.element()
 ver3 = g.insert_vertex('jain')
 ver4 = g.insert_vertex('namit')
 g.insert_edge(ver1,ver2,1000)
 g.insert_edge(ver2,ver3,2000)
+g.insert_edge(ver1,ver3,3000)
 a = g.vertices()
 
 print 'directed -->', g.is_directed()
 print 'vertex_count -->', g.vertex_count()
-print 'edge b/w dalla and tapan -->', g.get_edge(ver1,ver2)
+print 'edge b/w dalla and tapan -->', g.get_edge(ver1,ver2).element()
 print 'edge count -->', g.edge_count()
-print g.edge()
 
+# edges returns a set iterate through it and print its element through .element method
+print 'edge list -->'
+edges = g.edge()
+for i in edges:
+	print i.element()
 
+'''
 
 
 

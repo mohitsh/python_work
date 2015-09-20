@@ -82,7 +82,6 @@ for key in discovered:
 print 'constructed path -->'
 path  = construct_path(verts['JFK'],verts['ORD'],discovered)
 for key in path:
-	print key
 	print key.element()
 
 
