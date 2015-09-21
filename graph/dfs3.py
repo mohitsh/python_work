@@ -23,38 +23,6 @@ e8 = g.insert_edge(v3,v7,80)
 e9 = g.insert_edge(v4,v7,90)
 e10 = g.insert_edge(v4,v8,100)
 
-'''
-print g.vertex_count()
-print g.is_directed()
-print 'vertices:'
-verts = g.vertices()
-for v in verts:
-        print v
-print "checking for methods:"
-print g.vertex_count()
-v = g.vertices()
-for i in v:
-        print i.element()
-print g.edge_count()
-e = g.edges()
-for k in e:
-        print k
-
-print "fucking degree: "
-print g.degree(v1)
-print g.degree(v5)
-e1 = g.getedge(v1,v2)
-e2 = g.getedge(v1,v5)
-print e1
-print e2
-print "beware!!"
-in_edges = g.incident_edge(v1)
-for k in in_edges:
-        print k
-'''
-#e1 = g.getedge(v1,v5)
-#print e1.opposite(v5)
-#print e1.opposite(v1)
 
 def DFS(g,u,dic):
 	for e in g.incident_edge(u):
@@ -70,7 +38,6 @@ def construct_path(u,v,dic):
 		path.append(v)
 		walk = v
 		while walk is not u:
-			#print "inside while"
 			e = dic[walk]
 			parent = e.opposite(walk)
 			path.append(parent)
@@ -82,15 +49,9 @@ dic = {}
 dude = DFS(g,v1,dic)
 
 #for key in dude:
-#	print key,dude[key]
+#       print key,dude[key]
 
 path = construct_path(v1,v8,dude)
 for line in path:
-	print line
-	
-
-
-
-
-
+        print line
 

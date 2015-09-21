@@ -17,7 +17,7 @@ class Graph:
 		def opposite(self,v):
 			if not isinstance(v,Graph.Vertex):
 				raise TypeError('v must be a vertex')
-			return self._destination if self._origin else self._origin
+			return self._destination if v is self._origin else self._origin
 			raise ValueError('v not incident to this edge') 
 		def edges(self):
 			return (self._origin,self._destination)

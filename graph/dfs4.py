@@ -1,4 +1,3 @@
-
 from graph10 import Graph
 
 g = Graph()
@@ -23,45 +22,12 @@ e8 = g.insert_edge(v3,v7,80)
 e9 = g.insert_edge(v4,v7,90)
 e10 = g.insert_edge(v4,v8,100)
 
-'''
-print g.vertex_count()
-print g.is_directed()
-print 'vertices:'
-verts = g.vertices()
-for v in verts:
-        print v
-print "checking for methods:"
-print g.vertex_count()
-v = g.vertices()
-for i in v:
-        print i.element()
-print g.edge_count()
-e = g.edges()
-for k in e:
-        print k
-
-print "fucking degree: "
-print g.degree(v1)
-print g.degree(v5)
-e1 = g.getedge(v1,v2)
-e2 = g.getedge(v1,v5)
-print e1
-print e2
-print "beware!!"
-in_edges = g.incident_edge(v1)
-for k in in_edges:
-        print k
-'''
-#e1 = g.getedge(v1,v5)
-#print e1.opposite(v5)
-#print e1.opposite(v1)
-
-def DFS(g,u,dic):
+def dfs(g,u,dic):
 	for e in g.incident_edge(u):
 		v = e.opposite(u)
 		if v not in dic:
 			dic[v] = e
-			DFS(g,v,dic)
+			dfs(g,v,dic)
 	return dic
 
 def construct_path(u,v,dic):
@@ -70,7 +36,6 @@ def construct_path(u,v,dic):
 		path.append(v)
 		walk = v
 		while walk is not u:
-			#print "inside while"
 			e = dic[walk]
 			parent = e.opposite(walk)
 			path.append(parent)
@@ -78,16 +43,19 @@ def construct_path(u,v,dic):
 		path.reverse()
 	return path
 
+
 dic = {}
-dude = DFS(g,v1,dic)
+dude = dfs(g,v1,dic)
+print "dictionary ->"
+for key in dic:
+	print key,dic[key]
 
-#for key in dude:
-#	print key,dude[key]
-
+print "path b/w v1 and v7 ->"
 path = construct_path(v1,v8,dude)
-for line in path:
-	print line
-	
+for v in path:
+	print v
+
+
 
 
 
