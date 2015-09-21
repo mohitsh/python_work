@@ -83,7 +83,7 @@ def bfs(g,s,dic):
 				if v not in dic:
 					dic[v] = e
 					next_level.append(v)
-		level = next_level
+a		level = next_level
 	return dic
 
 def bfs1(g,s,dic):

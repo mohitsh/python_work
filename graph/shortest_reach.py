@@ -46,24 +46,73 @@ class Graph:
 			result.update(sec_map.values())
 		return result
 
+def bfs(g,s,dic):
+        level = [s]
+        while len(level) > 0:
+                next_level = []
+                for u in level:
+                        for e in g.incident_edges(u):
+                                v = e.opposite(u)
+                                if v not in dic:
+                                        dic[v] = e
+                                        next_level.append(v)
+                level = next_level
+        return dic
+def construct_path(u,v,dic):
+        path = []
+        if v in dic:
+                path.append(v)
+                walk = v
+                while walk is not u:
+                        #print "here"
+                        e = dic[walk]
+                        parent = e.opposite(walk)
+                        path.append(parent)
+                        walk = parent
+                path.reverse()
+        return path
+
+
 g = Graph()
 
-a = g.insertVertex("a")
-b = g.insertVertex("b")
-c = g.insertVertex("c")
+k = int(raw_input())
+for i in range(k):
+	n_m1 = raw_input().split()
+	n_m = [int(x) for x in n_m1]
+	store = {}
+	for i in range(1,n_m[0]+1):
+		store[i] = g.insertVertex(str(i))
+	for j in range(n_m[1]):
+		edge1 = raw_input().split()
+		edge = [int(x) for x in edge1]
+		g.insertEdge(store[edge[0]],store[edge[1]])
+	
 
-a_b = g.insertEdge(a,b)
-a_c = g.insertEdge(a,c)
-b_c = g.insertEdge(b,c)
+	start = int(raw_input())
+	dic = {}
+	dude = bfs(g,store[start],dic)
+	ans = []
+	for key in store:
+		
+		if key != start:
+			path = construct_path(store[start],store[key],dude)
+			if len(path) == 0:
+				ans.append(-1)
+			else:
+				ans.append(6*(len(path)-1))
+	print ' ' .join(str(x) for x in ans)
+					
+		
 
+
+'''
 vert = g.vertices()
+print "vertices"
 for k in vert:
-	print k
+        print k
 
 edge = g.edges()
+print "edges"
 for k in edge:
-	print k
-
-
-
- 
+        print k
+'''
