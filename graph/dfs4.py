@@ -44,16 +44,55 @@ def construct_path(u,v,dic):
 	return path
 
 
+def dfs1(g,v,dic):
+	for e in g.incident_edge(v):
+		u = e.opposite(v)
+		if u not in dic:
+			dic[u] = e
+			dfs(g,u,dic)
+	return dic
+
+
+def construct_path1(u,v,dic):
+	path = []
+	if v in dic:
+		path.append(v)
+		walk = v
+		while walk is not u:
+			e = dic[walk]
+			parent = e.opposite(walk)
+			path.append(parent)
+			walk = parent
+		path.reverse()
+	return path
+
 dic = {}
-dude = dfs(g,v1,dic)
+dude = dfs1(g,v1,dic)
 print "dictionary ->"
 for key in dic:
 	print key,dic[key]
 
 print "path b/w v1 and v7 ->"
-path = construct_path(v1,v8,dude)
+path = construct_path1(v1,v8,dude)
 for v in path:
 	print v
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
