@@ -41,7 +41,7 @@ class Graph:
 		v = self.Vertex(x)
 		self._outgoing[v] = {}
 		if self.is_directed():
-			self._incoming = {}
+			self._incoming[v] = {}
 		return v
 
 	def insert_edge(self,u,v,x):
