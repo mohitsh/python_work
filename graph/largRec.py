@@ -25,20 +25,23 @@ n = int(raw_input())
 h1 = raw_input().split()
 h = [int(x) for x in h1]
 
-arr = [h[0]]
+arr = []
 for i in range(len(h)-1,-1,-1):
 	s.push(h[i])
-
-#print s
-dude = len(s)
-for i in range(len(s)):	
-	top = s.pop()
-	if top > s.top():
-		arr.append(s.top()*(dude-len(s)))
-	else:
-		arr.append(top*(dude-len(s)))
-
-
+print "stack below"
 print s
+
+for k in range(len(s)):
+	elem = s.pop()
+	if len(arr) != 0:
+		top = arr[-1]
+		if elem < top:
+			arr.append(elem*(len(arr)+1))
+	elif len(arr) == 0:
+		arr.append(elem)
+
+print "array below"
 print arr
+
+
 	
