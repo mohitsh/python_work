@@ -1,7 +1,9 @@
 
 
 def bubble(alist):
+	# make n-1 passes for sorting
 	for i in range(len(alist)-1,0,-1):
+		
 		for j in range(i):
 			if alist[j] > alist[j+1]:
 				tmp = alist[j]
