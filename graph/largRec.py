@@ -19,29 +19,29 @@ class Stack:
 	def __str__(self):
 		return str(self._data)
 
-s = Stack()
-
 n = int(raw_input())
 h1 = raw_input().split()
 h = [int(x) for x in h1]
 
-arr = []
-for i in range(len(h)-1,-1,-1):
-	s.push(h[i])
-print "stack below"
-print s
+#print h
 
-for k in range(len(s)):
-	elem = s.pop()
-	if len(arr) != 0:
-		top = arr[-1]
-		if elem < top:
-			arr.append(elem*(len(arr)+1))
-	elif len(arr) == 0:
-		arr.append(elem)
-
-print "array below"
-print arr
-
-
+ans = [-1]
+for i in range(len(h)):
+	s = Stack()
+	#print "iteration ", i
+	for k in range(i,-1,-1):
+		#print k
+		if h[k] >= h[i]:
+			s.push(h[k]) 
+		else:
+			break
+	for j in range(i+1,len(h)):
+		#print j
+		if h[j] >= h[i]:
+			s.push(h[j])
+		else:
+			break
+	if h[i]*len(s) > ans[-1]:
+		ans.append(h[i]*(len(s)))
 	
+print ans[-1]
