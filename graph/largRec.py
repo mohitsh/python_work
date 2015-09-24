@@ -28,15 +28,12 @@ h = [int(x) for x in h1]
 ans = [-1]
 for i in range(len(h)):
 	s = Stack()
-	#print "iteration ", i
 	for k in range(i,-1,-1):
-		#print k
 		if h[k] >= h[i]:
 			s.push(h[k]) 
 		else:
 			break
 	for j in range(i+1,len(h)):
-		#print j
 		if h[j] >= h[i]:
 			s.push(h[j])
 		else:
