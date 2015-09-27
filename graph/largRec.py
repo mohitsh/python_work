@@ -22,45 +22,47 @@ class Stack:
 n = int(raw_input())
 h1 = raw_input().split()
 h = [int(x) for x in h1]
-print h
+#print h
 
 s = Stack()
 arr = []
-
+popped = 0
 for i in range(len(h)):
-	if len(s) == 0 or h[i] > h[s.top()]:
-		s.push(i)
-	elif h[i] < h[s.top()]:
-		while h[i] < h[s.top()] and len(s) != 0:
+	if len(s) == 0 or h[i] > s.top()[0]:
+		s.push([h[i],i,0])
+	elif h[i] < s.top()[0]:
+		while len(s) != 0 and h[i] < s.top()[0]:
 			top = s.pop()
-			if len(s) > 0:
-				arr.append(h[top]*(top-s.top()))
-			elif len(s) == 0:
-				arr.append(h[top]*(top))
-		s.push(i)
+			popped = popped + 1
+			if len(s) == 0:
+				arr.append(top[0]*(i-top[1]+top[2]))
+			else:
+				arr.append(top[0]*(i-top[1]))
 
+		s.push([h[i],i,popped])
 
-ans = []
+#print "array", arr
+#ans = []
+#while len(s) != 0:
+#	ans.append(s.pop())
+
+#print "stack", s
+#print "array", arr
+dude = []
 while len(s) != 0:
-	ans.append(s.pop())
+	dude.append(s.pop())
+#print "dude", dude
 
-print "ans", ans
-
-for i in range(len(ans)):
-	if i == 0:
-		arr.append(h[ans[i]]*(ans[i] - ans[i+1]))
-	elif i == len(ans) - 1:
-		arr.append(h[ans[i]]*len(h))
+for i in range(len(dude)):
+	start = dude[0][1]
+	if len(dude) == 1:
+		arr.append(dude[0][0])
 	else:
-		arr.append(h[ans[i]]*(ans[i-1]-ans[i+1]))
-'''
-while len(s) > 1:	
-	top = s.pop()
-	arr.append(h[top]*(top-s.top()))
-if len(s) == 1:
-	top = s.pop()
-	arr.append(h[top]*(len(arr)))
-
-'''
-print arr
+		if i == 0:
+			arr.append(dude[i][0]*(start- dude[i+1][1]))
+		elif i == len(dude)-1:
+			arr.append(dude[i][0]*(start+1))
+		else:
+			arr.append(dude[i][0]*(start-dude[i+1][1]))
+print max(arr)
 
