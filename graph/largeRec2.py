@@ -24,29 +24,36 @@ h1 = raw_input().split()
 h = [int(x) for x in h1]
 
 #s = Stack()
-def findMax(h,arg):
+def findMax(h):
 	s = Stack()
 	area = []
 	maxarea = 0
-	if arg == 1:
-		for i in range(len(h)):
-			if len(s) == 0 or h[s.top()] <= h[i]:
-				s.push(i)
-			else:
-				while len(s) != 0 and h[s.top()] > h[i]:
-					top = s.pop()
-					if len(s) == 0:
-						area = (h[top]*i)
-						if area > maxarea:
-							maxarea = area
-					else:
-						area = (h[top]*(i-s.top()-1))
-						if area > maxarea:
-							maxarea = area
-				s.push(i)
-		#print "stack", s
-		#print "maxarea",maxarea
+	for i in range(len(h)):
+		# top of stack is less than value to be entered
+		if len(s) == 0 or h[s.top()] <= h[i]:
+		# push value to stack
+			s.push(i)
+		# if value to be entered is less than top of stack
+		# pop the stack until we find a value less than the value to be entered
+		else:
+			# keep popping stack until a lesser value comes up
+			while len(s) != 0 and h[s.top()] > h[i]:
+				top = s.pop()
+				if len(s) == 0:
+					
+					area = (h[top]*i)
+					if area > maxarea:
+						maxarea = area
+				else:
+					area = (h[top]*(i-s.top()-1))
+					if area > maxarea:
+						maxarea = area
+			s.push(i)
 
+	# at this point we have a maximum value and a stack
+	# stack comprises of all the increasing element
+	# and max value corresponds to popped elements and are in decreasig order or 
+	# anamoly (largest)
 	start = s.top()
 	while len(s)!=0:
 		#start = s.top()
@@ -60,5 +67,5 @@ def findMax(h,arg):
 			if area >= maxarea:
 				maxarea = area
 	print maxarea
-findMax(h,1)
+findMax(h)
 
