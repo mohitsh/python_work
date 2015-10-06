@@ -1,21 +1,13 @@
 
 def choco(n,c,m):
 	bought = n/c
-	if bought >= m:
-		wrapper = (bought/m)*m		
-	else: 
-		return bought
-	left = bought - wrapper
-
-	while left >0:
-		exchanged = wrapper/m
-		left = left + exchanged
-		bought = bought  + exchanged
-		if bought >= m:
-			wrapper = (bought/m)*m
-		left=bought-wrapper
-	return bought
-		
+	count = bought
+	while bought >= m:
+		exchange = (bought/m)*m 
+		choco = (bought/m)
+		count = count + choco
+		bought = bought-exchange+choco
+	return count
 
 
 
