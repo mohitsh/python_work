@@ -7,5 +7,5 @@ reader = csv.reader(open("red_data2.csv","rb"),delimiter=",")
 x = list(reader)
 result = np.array(x).astype('float')
 np.shape(result)
-dude = scipy.cluster.vq.kmeans2(result,k=80)
+dude = scipy.cluster.vq.kmeans2(result,k=20)
 print dude
