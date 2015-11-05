@@ -1,22 +1,22 @@
 
 def sher_min(arr,n,p,q):
-    arr.sort()
-    arr1 = []
-    cool = []
-    for i in range(p,q+1):
-        arr2 = []
-        arr2.append(abs(arr[0]-i))
-        cool.append(min(arr2))
-        arr1.append(i)
+    	arr.sort()
+    	arr1 = []
+    	arr2 = []
     
-    dude = max(cool)
-    ind = cool.index(dude)
-    #print cool
-    #print arr1
-    print arr1[ind]
+	for i in range(n):
+    		arr1.append(abs(arr[i]-p))
+		arr2.append(abs(arr[i]-q))
+
+	#print min(arr1)
+	#print min(arr2)
+	if min(arr1) == min(arr2):
+		return p
+	elif min(arr1) > min(arr2):
+		return p
+	elif min(arr2) < min(arr2):
+		return q
     
-
-
 n = int(raw_input())
 a = raw_input().split()
 a = [int(x) for x in a]
@@ -25,4 +25,4 @@ p_q = [int(x) for x in p_q]
 p = p_q[0]
 q = p_q[1]
 
-sher_min(a,n,p,q)
+print sher_min(a,n,p,q)
