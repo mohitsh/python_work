@@ -1,4 +1,7 @@
 
+import Queue as Q
+q = Q.PriorityQueue()
+
 class Graph:
 	def __init__(self,graph_dict = {}):
 		self._graph_dict = graph_dict
@@ -65,15 +68,35 @@ start = 'a'
 v = g.vertices()
 length = len(v)
 
-verts = g.incident_edges('b')
-minim = verts[0][1][1]
-for k in verts:
-	print k
-	if k[1][1] < minim:
-		minim = k[1]
+verts = g.incident_edges('a')
+print v
+minim = verts[0][1]
+arr = []
+arr1 = []
 
-print minim
+while (len(v) != 0):
 	
+	for k in verts:
+		print "starts: "
+		print "k[1][1] -> ", k[1][1]
+		print "minim -> ",minim
+		
+		if k[1][1] < minim[1]:
+			minim = k[1]
+		
+	#for k in verts:
+	#	q.put((k[1],k[0]))
+	#
+	#minim = q.get()
+	if minim[0] not in arr:
+		v.remove(minim[0])
+		arr.append(minim[0])
+		arr1.append(minim)
+	verts = g.incident_edges(minim[0])
+	print v
+
+print arr
+print arr1
 
 
 
