@@ -86,9 +86,9 @@ g1.add_edge(['z','b'])
 g1.add_edge(['z','f'])
 g1.add_edge(['z','g'])
 
-print g1
+#print g1
+#print g.incident_edges('a')
 
-print g.incident_edges('a')
 disc = {}
 def dfs(g,u,disc):
 	for e in g.incident_edges(u):
@@ -98,7 +98,7 @@ def dfs(g,u,disc):
 			dfs(g,v,disc)
 
 dfs(g1,'a',disc)
-print disc
+#print disc
 
 
 def construct_path(u,v,disc):
@@ -114,29 +114,167 @@ def construct_path(u,v,disc):
 		path.reverse()
 	return path
 
-path = construct_path('a','b',disc)
-print path
+def dfs1(g,u,disc):
+	for e in g.incident_edges(u):
+		v = e[1][0]
+		if v not in disc:
+			disc[v] = e
+			dfs(g,v,disc)
 
-path = construct_path('a','c',disc)
-print path
+disc = {}
+dfs1(g1,'a',disc)
+#print disc
 
-path = construct_path('a','d',disc)
-print path
 
-path = construct_path('a','d',disc)
-print path
+def dfs2(g,u,disc):
+	for e in g.incident_edges(u):
+		v = e[1][0]
+		if v not in disc:
+			disc[v] = e	
+			dfs2(g,v,disc)
+disc = {}
+dfs2(g1,'a',disc)
+#print disc
 
-path = construct_path('a','e',disc)
-print path
+def construct_path1(u,v,disc):
+	path = []
+	if v in disc:
+		path.append(v)
+		walk = v
+		while walk is not u:
+			e = disc[walk]
+			parent = e[0]
+			path.append(parent)
+			walk = parent
+		path.reverse()
+	return path
 
-path = construct_path('a','f',disc)
-print path
+#print construct_path1('a','g',disc)	
 
-path = construct_path('a','z',disc)
-print path
+def path(u,v,disc):
+	path = []
+	if v in disc:
+		path.append(v)
+		walk = v
+		while walk is not u:
+			e = disc[walk]
+			parent = e[0]
+			path.append(parent)
+			walk = parent
+		path.reverse()
+	return path
 
-path = construct_path('a','g',disc)
-print path
+#print path('a','e',disc)
+
+g2 = Graph()
+
+g2.add_vertex('a')
+g2.add_vertex('b')
+g2.add_vertex('c')
+g2.add_vertex('d')
+g2.add_vertex('e')
+g2.add_vertex('g')
+g2.add_vertex('j')
+g2.add_vertex('k')
+g2.add_vertex('i')
+g2.add_vertex('m')
+g2.add_vertex('p')
+
+g2.add_edge(['a','b'])
+g2.add_edge(['a','c'])
+g2.add_edge(['c','d'])
+g2.add_edge(['b','d'])
+g2.add_edge(['b','g'])
+g2.add_edge(['d','e'])
+g2.add_edge(['e','g'])
+g2.add_edge(['e','j'])
+g2.add_edge(['j','k'])
+g2.add_edge(['g','k'])
+g2.add_edge(['g','i'])
+g2.add_edge(['k','m'])
+g2.add_edge(['i','m'])
+g2.add_edge(['i','p'])
+
+disc = {}
+dfs(g2,'a',disc)
+#print path('a','p',disc)
+
+# forest 
+
+def dfs_complete(g):
+	forest = {}
+	for u in g.vertices():
+		if u not in forest:
+			forest[u] = None
+			dfs(g,u,forest)
+	return forest
+
+#print "forest: "
+#print dfs_complete(g2)	
+
+
+# cycle detection
+
+for key1 in disc:
+	for key2 in disc:
+		if disc[key1] == [disc[key2][1],disc[key2][0]]:
+			#print disc[key1],disc[key2]
+			break
+
+
+def bfs(g,s,disc):
+	level = [s]
+	while len(level) > 0:
+		next_level = []
+		for u in level:
+			for e in g.incident_edges(u):
+				v = e[1]
+				if v not in disc and v != s:
+					disc[v] = e
+					next_level.append(v)
+		level = next_level
+
+g3 = Graph()
+
+g3.add_vertex('a')
+g3.add_vertex('b')
+g3.add_vertex('c')
+g3.add_vertex('d')
+g3.add_vertex('e')
+g3.add_vertex('f')
+g3.add_vertex('g')
+g3.add_vertex('h')
+g3.add_vertex('i')
+
+g3.add_edge(['a','b'])
+g3.add_edge(['b','c'])
+g3.add_edge(['a','d'])
+g3.add_edge(['d','e'])
+g3.add_edge(['e','f'])
+g3.add_edge(['f','c'])
+g3.add_edge(['d','g'])
+g3.add_edge(['g','h'])
+g3.add_edge(['h','i'])
+g3.add_edge(['b','e'])
+g3.add_edge(['e','h'])
+g3.add_edge(['f','i'])
+
+
+"after BFS: "
+disc = {}
+bfs(g3,'a',disc)
+print disc
+
+#print g3.incident_edges('e')
+
+
+
+
+
+
+
+
+
 
 
 
