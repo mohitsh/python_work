@@ -262,20 +262,40 @@ g3.add_edge(['f','i'])
 
 "after BFS: "
 disc = {}
-bfs(g3,'a',disc)
-print disc
+#bfs(g3,'a',disc)
+#print disc
 
 #print g3.incident_edges('e')
 
 
 
+def bfs1(g,s,disc):
+	level = [s]
+	while len(level) > 0:
+		next_level = []
+		for u in level:
+			for e in g.incident_edges(u):
+				v = e[1]
+				if v not in disc and v!=s:
+					disc[v] = e
+					next_level.append(v)
+		level = next_level
+	
+disc = {}
+#bfs1(g3,'a',disc)
+#print disc
+
+
+def dfs11(g,u,disc):
+        for e in g.incident_edges(u):
+                v = e[1]
+                if v not in disc:
+                        disc[v] = e
+                        dfs11(g,v,disc)
 
 
 
-
-
-
-
-
-
+disc = {}
+dfs11(g3,'a',disc)
+print disc
 
