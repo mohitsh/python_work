@@ -27,7 +27,7 @@ class Graph:
 			for neighbor in self._graph_dict[vertex]:
 				if [vertex,neighbor] not in edges:
 					edges.append([vertex,neighbor])
-					edges.append([neighbor,vertex])
+					#edges.append([neighbor,vertex])
 
 		return edges
 	
@@ -49,6 +49,11 @@ class Graph:
 
 		return res
 
+	def get_edge(self,u,v):
+		for e in self.incident_edges(u):
+			if e[1] == v:
+				return e
+
 g = Graph()
 g.add_vertex('a')
 g.add_vertex('b')
@@ -58,14 +63,18 @@ g.add_vertex('d')
 g.add_edge(['a','b'])
 g.add_edge(['a','d'])
 g.add_edge(['a','c'])
-g.add_edge(['c','b'])
+#g.add_edge(['c','b'])
 g.add_edge(['c','d'])
-g.add_edge(['c','f'])
-g.add_edge(['c','e'])
-g.add_edge(['e','p'])
-g.add_edge(['e','q'])
-g.add_edge(['p','x'])
-g.add_edge(['p','y'])
+#g.add_edge(['c','f'])
+#g.add_edge(['c','e'])
+#g.add_edge(['e','p'])
+#g.add_edge(['e','q'])
+#g.add_edge(['p','x'])
+#g.add_edge(['p','y'])
+g.add_edge(['b','d'])
+g.add_edge(['d','e'])
+g.add_edge(['b','e'])
+g.add_edge(['e','f'])
 
 def dfs(g,u,disc):
 	for e in g.incident_edges(u):
@@ -179,7 +188,7 @@ def path11(u,v,disc):
 		path.reverse()
 	return path
 
-
+"""
 disc = {}
 dfs11(g,'a',disc)
 print "Call dfs: "
@@ -195,6 +204,172 @@ for key in disc:
         print key,disc[key]
 
 print path11('a','y',disc)
+"""
+
+# floyd warshall gets you all the paths in graph
+import copy
+
+def floyd_warshall(g):
+	closure = copy.deepcopy(g)
+	verts = list(closure.vertices())
+	n = len(verts)
+	for k in range(n):
+		for i in range(n):
+			if i!=k and closure.get_edge(verts[i],verts[k]) is not None:
+				for j in range(n):
+					if i!=j!=k and closure.get_edge(verts[k],verts[j]) is not None:
+						if closure.get_edge(verts[i],verts[j]) is None:
+							closure.add_edge([verts[i],verts[j]])
+	return closure
+
+print floyd_warshall(g)
+
+
+def floydWarshall1(g):
+	closure = copy.deepcopy(g)
+	verts = g.vertices()
+	n = len(verts)
+	for k in range(n):
+		for i in range(n):
+			# edge i to k exists
+			if i!=k and closure.get_edge(verts[i],verts[k]) is not None:
+				for j in range(n):
+					# edge k to j exists
+					if i!=j!=k and closure.get_edge(verts[k],verts[j]) is not None:
+						# edge i to j
+						if closure.get_edge(verts[i],verts[j]) is None:
+							closure.add_edge([verts[i],verts[j]])
+	return closure
+
+print floydWarshall1(g)
+
+
+
+def floydWarshall2(g):
+	closure = copy.deepcopy(g)
+	verts = g.vertices()
+	n = len(verts)
+	for k in range(n):
+		for i in range(n):
+			if i!=k and closure.get_edge(verts[i],verts[k]) is not None:
+				for j in range(n):
+					if i!=j!=k and closure.get_edge(verts[k],verts[j]) is not None:
+						if closure.get_edge(verts[i],verts[j]) is None:
+							closure.add_edge([verts[i],verts[j]])
+	return closure
+
+print floydWarshall2(g)
+
+def floydWarshall3(g):
+	closure = copy.deepcopy(g)
+	verts = closure.vertices()
+	n = len(verts)
+	for k in range(n):
+		for i in range(n):
+			if i!=k and closure.get_edge(verts[i],verts[k]) is not None:
+				for j in range(n):
+					if i!=j!=k and closure.get_edge(verts[k],verts[j]) is not None:
+						if closure.get_edge(verts[i],verts[j]) is None:
+							closure.add_edge([verts[i],verts[j]])
+	return closure
+
+print floydWarshall3(g)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
