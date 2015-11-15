@@ -2,8 +2,8 @@
 
 p=[0.2,0.2,0.2,0.2,0.2]
 world = ['green','red','red','green','green']
-Z = ['red','red']
-motions = [1,1]
+Z = ['green','red']
+motions = [1,-1]
 pHit = 0.6
 pMiss = 0.2
 
