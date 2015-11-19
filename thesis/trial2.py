@@ -1,24 +1,17 @@
 
-p = 	 [[0.05,0.05,0.05,0.05,0.05],
-          [0.05,0.05,0.05,0.05,0.05],
-          [0.05,0.05,0.05,0.05,0.05],
-          [0.05,0.05,0.05,0.05,0.05]]
+p = [[.1,.1],[.1,.1],[.1,.1],[.1,.1],[.1,.1]]
+colors = [['R', 'G'],
+          ['R', 'R'],
+          ['G', 'R'],
+          ['R', 'G'],
+          ['G', 'G']]
+measurements = ['R', 'R', 'G', 'G', 'G', 'R']
+motions = [[0, 0], [-1, 0], [0, 1], [0, -1], [0, 1], [1, 0]]
 
-colors = [['R','G','G','R','R'],
-          ['R','R','G','R','R'],
-          ['R','R','G','G','R'],
-          ['R','R','R','R','R']]
+pHit = 0.99
+pMiss = 1- pHit
 
-measurements = ['G','G','G','G','G']
-#motions = [[0,0],[0,1],[1,0],[1,0],[0,1]]
-motions = [[0,0],[0,1],[1,0]]
-
-pHit = 0.7
-pMiss = 0.3
-
-pExact = 0.8
-pOvershoot = 0.1
-pUndershoot = 0.1
+p_move = 0.97
 
 def sense(p,measurements):
 	q = []
@@ -56,61 +49,32 @@ def move(p,U):
 		U = -1
 	
 	if flag == 1:
-		print "flag is 1"
+		#print "flag is 1"
 		q = []
 		for i in range(len(p)):
 			q1 = [0]*len(p[i])
 			for j in range(len(p[i])):
-				q1[(j+U)%len(p[i])] = q1[(j+U)%len(p[i])]+p[i][j]*pExact
-				q1[(j+U-1)%len(p[i])] = q1[(j+U-1)%len(p[i])]+p[i][j]*pUndershoot
-				q1[(j+U+1)%len(p[i])] = q1[(j+U+1)%len(p[i])]+p[i][j]*pOvershoot
+				q1[(j+U)%len(p[i])] = q1[(j+U)%len(p[i])]+p[i][j]*p_move
+				#q1[(j+U-1)%len(p[i])] = q1[(j+U-1)%len(p[i])]+p[i][j]*(1-p_move)
+				q1[j] = q1[j]+p[i][j]*(1-p_move)
+				#q1[(j+U+1)%len(p[i])] = q1[(j+U+1)%len(p[i])]+p[i][j]*pOvershoot
 			q.append(q1)
-		#return q
 
 	if flag == 0:
-		print "flag is 0"
-		print "U is: ", U
 		rows = len(p)
 		cols = len(p[0])
-		#print rows
-		#print cols
 		q = [[0]*cols]*rows
-		#for k in q:
-		#	print k
-		for j in range(cols):
-			for i in range(rows):
-				print "i",i,"j",j
-				print q
-                                q[(i+U)%rows][j]  = q[(i+U)%rows][j] + p[i][j]*pExact
-                                q[(i+U-1)%rows][j] = q[(i+U-1)%rows][j]  + p[i][j]*pUndershoot
-                                q[(i+U+1)%rows][j]  = q[(i+U+1)%rows][j]  + p[i][j]*pOvershoot
-		#return q
+		for i in range(rows):
+			q[(i+U)%rows] = [sum(x) for x in zip(q[(i+U)%rows],[k*p_move for k in p[i]])]
+			q[i] = [sum(x) for x in zip(q[i],[k*(1-p_move) for k in p[i]])]
+			#q[(i+U-1)%rows] =[sum(x) for x in zip(q[(i+U-1)%rows],[k*(1-p_move) for k in p[i]])]
+			#q[(i+U+1)%rows] = [sum(x) for x in zip(q[(i+U+1)%rows],[k*pOvershoot for k in p[i]])]		
 	return q
 	
-"""
-p = sense(p,'G')
-for k in p:
-	print k
-"""
-p = move(p,[1,0])
-#p = move(p,[1,0])
-#p = move(p,[1,0])
-
-print 'after movement:'
-for k in p:
-	print k
-
-"""
 for k in range(len(measurements)):
-	p = sense(p,measurements[k])
 	p = move(p,motions[k])
+	p = sense(p,measurements[k])
 
-print p
-"""
-"""
-for i in range(1000):
-	p = move(p,1)
-print p 
-print sense(p,Z)
-"""	
+for k in p:
+	print k
 

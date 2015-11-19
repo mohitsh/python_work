@@ -13,8 +13,14 @@ pUndershoot = 0.1
 
 def sense(p,Z):
 	for i in range(len(p)):
+		if Z == world[i]:
+			p[i] = p[i]*pHit
+		else:
+			p[i] = p[i]*pMiss
+		"""
 		hit = (Z == world[i])
 		p[i] = (p[i]*(hit*pHit + (1-hit)*pMiss))
+		"""
 	dude_sum = sum(p)
 	#print dude_sum
 	for i in range(len(p)):
@@ -33,12 +39,14 @@ def move(p,U):
 p = [0.2,0.2,0.2,0.2,0.2]
 print p
 
+#print move(p,2)
+"""
 for k in range(len(Z)):
 	p = sense(p,Z[k])
 	p = move(p,motions[k])
 
 print p
-
+"""
 """
 for i in range(1000):
 	p = move(p,1)
